@@ -20,9 +20,12 @@ public class TimeConversion {
         String meridiem = s.substring( 8, 10 );
         // Convert to military time
         if ( !hours.equals( 12 ) && meridiem.equals( "PM" )  ) { hours += 12; }
-        if ( hours.equals( 12 ) && meridiem.equals( "AM" ) ) { hours = 0; }
-        // Return statement
-        return Integer.toString( hours ) + ":" + minutes + ":" + seconds;
+		if ( hours.equals( 12 ) && meridiem.equals( "AM" ) ) { hours = 0; }
+		// Build final hour value as a string
+        String result = Integer.toString( hours ) + ":" + minutes + ":" + seconds;
+        if ( hours < 10 ) { result = "0" + result; }
+		// Return statement
+        return result;
     }
 
     public static void main( String[] args ) {
@@ -34,6 +37,5 @@ public class TimeConversion {
         System.out.println( result );
     }
 }
-
 
 
