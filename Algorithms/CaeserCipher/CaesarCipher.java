@@ -7,6 +7,22 @@ import java.util.*;
 
 
 public class CaesarCipher {
+
+	static int findIndex( String[ ] array, String string ) {
+		for ( int idx = 0; idx < array.length; idx++ ) {
+			if ( array[ idx ] == string ) { return idx; }
+			else { continue; }
+		}
+		return -1;
+	}
+
+	static boolean possesses( String[ ] array, String string ) {
+		for ( int idx = 0; idx < array.length; idx++ ) {
+			if ( array[ idx ] == string ) { return true; }
+			else { continue; }
+		}
+		return false;
+	}
     
     static String encryptToCipher( String encrypt, int rotate ) {
         // Key characters for encryption
@@ -18,21 +34,25 @@ public class CaesarCipher {
             // Iteration variable placeholders 
             String text = encrypt.substring( idx );
             int shift = 0;
-            // Verify character conversion method if necessary
-            if ( upper.contains( text ) ) {
-                int original = upper.indexOf( text );
-                if ( original + rotate > 25 ) { shift = Math.addExact( original, rotate ) - 25; }
-                else { shift = original + rotate; }
-                cipher = cipher + upper[ shift ];
-            }
-            else if ( lower.contains( text ) ) {
-                int original = lower.indexOf( text );
-                if ( original + rotate > 25 ) { shift = Math.addExact( original, rotate ) - 25; }
-                else { shift = original + rotate; }
-                cipher = cipher + lower[ shift ];
-            }
-            else { continue; }
-        }
+			// Verify character conversion method if necessary
+			if ( possesses( upper, text ) ) {
+				int original = findIndex( upper, text );
+				if ( original + rotate > 25 ) { shift = Math.addExact( original, rotate ) - 25; }
+				else { shift = original + rotate; }
+				cipher = cipher.concat( upper[ shift ] );
+				System.out.println( original );
+			}
+			System.out.println(  );
+			if ( possesses( lower, text ) ) {
+				int original = findIndex( lower, text );
+				if ( original + rotate > 25 ) { shift = Math.addExact( original, rotate ) - 25; }
+				else { shift = original + rotate; }
+				cipher = cipher.concat( lower[ shift ] );
+				System.out.println( original );
+			}
+			System.out.println(  );
+		}
+		System.out.println(  );
         // Return statement
         return cipher;
     }
